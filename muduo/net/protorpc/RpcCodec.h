@@ -14,18 +14,19 @@
 #include "muduo/base/Timestamp.h"
 #include "muduo/net/protobuf/ProtobufCodecLite.h"
 
-namespace muduo
-{
-namespace net
-{
+namespace muduo {
+    namespace net {
 
-class Buffer;
-class TcpConnection;
-typedef std::shared_ptr<TcpConnection> TcpConnectionPtr;
+        class Buffer;
 
-class RpcMessage;
-typedef std::shared_ptr<RpcMessage> RpcMessagePtr;
-extern const char rpctag[];// = "RPC0";
+        class TcpConnection;
+
+        typedef std::shared_ptr <TcpConnection> TcpConnectionPtr;
+
+        class RpcMessage;
+
+        typedef std::shared_ptr <RpcMessage> RpcMessagePtr;
+        extern const char rpctag[];// = "RPC0";
 
 // wire format
 //
@@ -37,9 +38,9 @@ extern const char rpctag[];// = "RPC0";
 // checksum  4-byte  adler32 of "RPC0"+payload
 //
 
-typedef ProtobufCodecLiteT<RpcMessage, rpctag> RpcCodec;
+        typedef ProtobufCodecLiteT <RpcMessage, rpctag> RpcCodec;
 
-}  // namespace net
+    }  // namespace net
 }  // namespace muduo
 
 #endif  // MUDUO_NET_PROTORPC_RPCCODEC_H

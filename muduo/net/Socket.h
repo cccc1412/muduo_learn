@@ -16,74 +16,73 @@
 // struct tcp_info is in <netinet/tcp.h>
 struct tcp_info;
 
-namespace muduo
-{
+namespace muduo {
 ///
 /// TCP networking.
 ///
-namespace net
-{
+    namespace net {
 
-class InetAddress;
+        class InetAddress;
 
 ///
 /// Wrapper of socket file descriptor.
 ///
 /// It closes the sockfd when desctructs.
 /// It's thread safe, all operations are delagated to OS.
-class Socket : noncopyable
-{
- public:
-  explicit Socket(int sockfd)
-    : sockfd_(sockfd)
-  { }
+        class Socket : noncopyable {
+        public:
+            explicit Socket(int sockfd)
+                    : sockfd_(sockfd) {}
 
-  // Socket(Socket&&) // move constructor in C++11
-  ~Socket();
+            // Socket(Socket&&) // move constructor in C++11
+            ~Socket();
 
-  int fd() const { return sockfd_; }
-  // return true if success.
-  bool getTcpInfo(struct tcp_info*) const;
-  bool getTcpInfoString(char* buf, int len) const;
+            int fd() const { return sockfd_; }
 
-  /// abort if address in use
-  void bindAddress(const InetAddress& localaddr);
-  /// abort if address in use
-  void listen();
+            // return true if success.
+            bool getTcpInfo(struct tcp_info *) const;
 
-  /// On success, returns a non-negative integer that is
-  /// a descriptor for the accepted socket, which has been
-  /// set to non-blocking and close-on-exec. *peeraddr is assigned.
-  /// On error, -1 is returned, and *peeraddr is untouched.
-  int accept(InetAddress* peeraddr);
+            bool getTcpInfoString(char *buf, int len) const;
 
-  void shutdownWrite();
+            /// abort if address in use
+            void bindAddress(const InetAddress &localaddr);
 
-  ///
-  /// Enable/disable TCP_NODELAY (disable/enable Nagle's algorithm).
-  ///
-  void setTcpNoDelay(bool on);
+            /// abort if address in use
+            void listen();
 
-  ///
-  /// Enable/disable SO_REUSEADDR
-  ///
-  void setReuseAddr(bool on);
+            /// On success, returns a non-negative integer that is
+            /// a descriptor for the accepted socket, which has been
+            /// set to non-blocking and close-on-exec. *peeraddr is assigned.
+            /// On error, -1 is returned, and *peeraddr is untouched.
+            int accept(InetAddress *peeraddr);
 
-  ///
-  /// Enable/disable SO_REUSEPORT
-  ///
-  void setReusePort(bool on);
+            void shutdownWrite();
 
-  ///
-  /// Enable/disable SO_KEEPALIVE
-  ///
-  void setKeepAlive(bool on);
+            ///
+            /// Enable/disable TCP_NODELAY (disable/enable Nagle's algorithm).
+            ///
+            void setTcpNoDelay(bool on);
 
- private:
-  const int sockfd_;
-};
+            ///
+            /// Enable/disable SO_REUSEADDR
+            ///
+            void setReuseAddr(bool on);
 
-}  // namespace net
+            ///
+            /// Enable/disable SO_REUSEPORT
+            ///
+            void setReusePort(bool on);
+
+            ///
+            /// Enable/disable SO_KEEPALIVE
+            ///
+            void setKeepAlive(bool on);
+
+        private:
+            const int sockfd_;
+        };
+
+    }  // namespace net
 }  // namespace muduo
 
 #endif  // MUDUO_NET_SOCKET_H

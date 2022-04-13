@@ -14,44 +14,41 @@
 #include "muduo/net/TcpServer.h"
 
 namespace google {
-namespace protobuf {
+    namespace protobuf {
 
-class Service;
+        class Service;
 
-}  // namespace protobuf
+    }  // namespace protobuf
 }  // namespace google
 
-namespace muduo
-{
-namespace net
-{
+namespace muduo {
+    namespace net {
 
-class RpcServer
-{
- public:
-  RpcServer(EventLoop* loop,
-            const InetAddress& listenAddr);
+        class RpcServer {
+        public:
+            RpcServer(EventLoop *loop,
+                      const InetAddress &listenAddr);
 
-  void setThreadNum(int numThreads)
-  {
-    server_.setThreadNum(numThreads);
-  }
+            void setThreadNum(int numThreads) {
+                server_.setThreadNum(numThreads);
+            }
 
-  void registerService(::google::protobuf::Service*);
-  void start();
+            void registerService(::google::protobuf::Service *);
 
- private:
-  void onConnection(const TcpConnectionPtr& conn);
+            void start();
 
-  // void onMessage(const TcpConnectionPtr& conn,
-  //                Buffer* buf,
-  //                Timestamp time);
+        private:
+            void onConnection(const TcpConnectionPtr &conn);
 
-  TcpServer server_;
-  std::map<std::string, ::google::protobuf::Service*> services_;
-};
+            // void onMessage(const TcpConnectionPtr& conn,
+            //                Buffer* buf,
+            //                Timestamp time);
 
-}  // namespace net
+            TcpServer server_;
+            std::map<std::string, ::google::protobuf::Service *> services_;
+        };
+
+    }  // namespace net
 }  // namespace muduo
 
 #endif  // MUDUO_NET_PROTORPC_RPCSERVER_H

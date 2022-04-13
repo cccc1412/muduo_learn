@@ -17,33 +17,33 @@
 
 struct pollfd;
 
-namespace muduo
-{
-namespace net
-{
+namespace muduo {
+    namespace net {
 
 ///
 /// IO Multiplexing with poll(2).
 ///
-class PollPoller : public Poller
-{
- public:
+        class PollPoller : public Poller {
+        public:
 
-  PollPoller(EventLoop* loop);
-  ~PollPoller() override;
+            PollPoller(EventLoop *loop);
 
-  Timestamp poll(int timeoutMs, ChannelList* activeChannels) override;
-  void updateChannel(Channel* channel) override;
-  void removeChannel(Channel* channel) override;
+            ~PollPoller() override;
 
- private:
-  void fillActiveChannels(int numEvents,
-                          ChannelList* activeChannels) const;
+            Timestamp poll(int timeoutMs, ChannelList *activeChannels) override;
 
-  typedef std::vector<struct pollfd> PollFdList;
-  PollFdList pollfds_;
-};
+            void updateChannel(Channel *channel) override;
 
-}  // namespace net
+            void removeChannel(Channel *channel) override;
+
+        private:
+            void fillActiveChannels(int numEvents,
+                                    ChannelList *activeChannels) const;
+
+            typedef std::vector<struct pollfd> PollFdList;
+            PollFdList pollfds_;
+        };
+
+    }  // namespace net
 }  // namespace muduo
 #endif  // MUDUO_NET_POLLER_POLLPOLLER_H

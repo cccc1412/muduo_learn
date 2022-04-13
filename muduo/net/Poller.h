@@ -17,55 +17,52 @@
 #include "muduo/base/Timestamp.h"
 #include "muduo/net/EventLoop.h"
 
-namespace muduo
-{
-namespace net
-{
+namespace muduo {
+    namespace net {
 
-class Channel;
+        class Channel;
 
 ///
 /// Base class for IO Multiplexing
 ///
 /// This class doesn't own the Channel objects.
-class Poller : noncopyable
-{
- public:
-  typedef std::vector<Channel*> ChannelList;
+        class Poller : noncopyable {
+        public:
+            typedef std::vector<Channel *> ChannelList;
 
-  Poller(EventLoop* loop);
-  virtual ~Poller();
+            Poller(EventLoop *loop);
 
-  /// Polls the I/O events.
-  /// Must be called in the loop thread.
-  virtual Timestamp poll(int timeoutMs, ChannelList* activeChannels) = 0;
+            virtual ~Poller();
 
-  /// Changes the interested I/O events.
-  /// Must be called in the loop thread.
-  virtual void updateChannel(Channel* channel) = 0;
+            /// Polls the I/O events.
+            /// Must be called in the loop thread.
+            virtual Timestamp poll(int timeoutMs, ChannelList *activeChannels) = 0;
 
-  /// Remove the channel, when it destructs.
-  /// Must be called in the loop thread.
-  virtual void removeChannel(Channel* channel) = 0;
+            /// Changes the interested I/O events.
+            /// Must be called in the loop thread.
+            virtual void updateChannel(Channel *channel) = 0;
 
-  virtual bool hasChannel(Channel* channel) const;
+            /// Remove the channel, when it destructs.
+            /// Must be called in the loop thread.
+            virtual void removeChannel(Channel *channel) = 0;
 
-  static Poller* newDefaultPoller(EventLoop* loop);
+            virtual bool hasChannel(Channel *channel) const;
 
-  void assertInLoopThread() const
-  {
-    ownerLoop_->assertInLoopThread();
-  }
+            static Poller *newDefaultPoller(EventLoop *loop);
 
- protected:
-  typedef std::map<int, Channel*> ChannelMap;
-  ChannelMap channels_;
+            void assertInLoopThread() const {
+                ownerLoop_->assertInLoopThread();
+            }
 
- private:
-  EventLoop* ownerLoop_;
-};
+        protected:
+            typedef std::map<int, Channel *> ChannelMap;
+            ChannelMap channels_;
 
-}  // namespace net
+        private:
+            EventLoop *ownerLoop_;
+        };
+
+    }  // namespace net
 }  // namespace muduo
 
 #endif  // MUDUO_NET_POLLER_H

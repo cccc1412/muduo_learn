@@ -16,48 +16,46 @@
 #include "muduo/net/Channel.h"
 #include "muduo/net/Socket.h"
 
-namespace muduo
-{
-namespace net
-{
+namespace muduo {
+    namespace net {
 
-class EventLoop;
-class InetAddress;
+        class EventLoop;
+
+        class InetAddress;
 
 ///
 /// Acceptor of incoming TCP connections.
 ///
-class Acceptor : noncopyable
-{
- public:
-  typedef std::function<void (int sockfd, const InetAddress&)> NewConnectionCallback;
+        class Acceptor : noncopyable {
+        public:
+            typedef std::function<void(int sockfd, const InetAddress &)> NewConnectionCallback;
 
-  Acceptor(EventLoop* loop, const InetAddress& listenAddr, bool reuseport);
-  ~Acceptor();
+            Acceptor(EventLoop *loop, const InetAddress &listenAddr, bool reuseport);
 
-  void setNewConnectionCallback(const NewConnectionCallback& cb)
-  { newConnectionCallback_ = cb; }
+            ~Acceptor();
 
-  void listen();
+            void setNewConnectionCallback(const NewConnectionCallback &cb) { newConnectionCallback_ = cb; }
 
-  bool listening() const { return listening_; }
+            void listen();
 
-  // Deprecated, use the correct spelling one above.
-  // Leave the wrong spelling here in case one needs to grep it for error messages.
-  // bool listenning() const { return listening(); }
+            bool listening() const { return listening_; }
 
- private:
-  void handleRead();
+            // Deprecated, use the correct spelling one above.
+            // Leave the wrong spelling here in case one needs to grep it for error messages.
+            // bool listenning() const { return listening(); }
 
-  EventLoop* loop_;
-  Socket acceptSocket_;
-  Channel acceptChannel_;
-  NewConnectionCallback newConnectionCallback_;
-  bool listening_;
-  int idleFd_;
-};
+        private:
+            void handleRead();
 
-}  // namespace net
+            EventLoop *loop_;
+            Socket acceptSocket_;
+            Channel acceptChannel_;
+            NewConnectionCallback newConnectionCallback_;
+            bool listening_;
+            int idleFd_;
+        };
+
+    }  // namespace net
 }  // namespace muduo
 
 #endif  // MUDUO_NET_ACCEPTOR_H

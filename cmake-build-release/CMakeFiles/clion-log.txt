@@ -1,0 +1,34 @@
+"C:\Program Files\JetBrains\CLion 2021.3.4\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Release "-DCMAKE_MAKE_PROGRAM=C:/Program Files/JetBrains/CLion 2021.3.4/bin/ninja/win/ninja.exe" -G Ninja D:\WorkSpace\project\muduo
+CMake Deprecation Warning at CMakeLists.txt:1 (cmake_minimum_required):
+  Compatibility with CMake < 2.8.12 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value or use a ...<max> suffix to tell
+  CMake that the project does not need compatibility with older versions.
+
+
+CMake Error at C:/Program Files/JetBrains/CLion 2021.3.4/bin/cmake/win/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake:230 (message):
+  Could NOT find Boost (missing: Boost_INCLUDE_DIR)
+Call Stack (most recent call first):
+  C:/Program Files/JetBrains/CLion 2021.3.4/bin/cmake/win/share/cmake-3.21/Modules/FindPackageHandleStandardArgs.cmake:594 (_FPHSA_FAILURE_MESSAGE)
+  C:/Program Files/JetBrains/CLion 2021.3.4/bin/cmake/win/share/cmake-3.21/Modules/FindBoost.cmake:2345 (find_package_handle_standard_args)
+  CMakeLists.txt:53 (find_package)
+
+
+CMake Warning (dev) in C:/Program Files/JetBrains/CLion 2021.3.4/bin/cmake/win/share/cmake-3.21/Modules/FindBoost.cmake:
+  Policy CMP0011 is not set: Included scripts do automatic cmake_policy PUSH
+  and POP.  Run "cmake --help-policy CMP0011" for policy details.  Use the
+  cmake_policy command to set the policy and suppress this warning.
+
+  The included script
+
+    C:/Program Files/JetBrains/CLion 2021.3.4/bin/cmake/win/share/cmake-3.21/Modules/FindBoost.cmake
+
+  affects policy settings.  CMake is implying the NO_POLICY_SCOPE option for
+  compatibility, so the effects are applied to the including context.
+Call Stack (most recent call first):
+  CMakeLists.txt:53 (find_package)
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Configuring incomplete, errors occurred!
+See also "D:/WorkSpace/project/muduo/cmake-build-release/CMakeFiles/CMakeOutput.log".
